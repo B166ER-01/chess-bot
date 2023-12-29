@@ -12,7 +12,6 @@ endColor = (51, 0, 102)
 
 
 def main():
-    print(ChessEngine.GameState)
     p.init()
     screen = p.display.set_mode((BOARD_WIDTH, BOARD_HEIGHT))
     clock = p.time.Clock()
@@ -47,12 +46,10 @@ def main():
                         playerClicks.append(sqSelected)
                     if len(playerClicks) == 2:
                         move = ChessEngine.Move(playerClicks[0], playerClicks[1], gs.board)
-                        print(move.getChessNotation())
                         for i in range(len(validMoves)):
                             if move == validMoves[i]:
                                 gs.makeMove(validMoves[i])
                                 moveMade = True
-                                print(SmartMoveFinder.scoreBoard(gs))
                                 sqSelected = ()
                                 playerClicks = []
                         if not moveMade:
@@ -71,10 +68,8 @@ def main():
                     gameOver = False
         if not gameOver and not humanTurn:
             AIMove = SmartMoveFinder.findBestMove(gs, validMoves)
-            print(SmartMoveFinder.scoreBoard(gs))
             if AIMove is None:
                 AIMove = SmartMoveFinder.findRandomMove(validMoves)
-                print(SmartMoveFinder.scoreBoard(gs))
             gs.makeMove(AIMove)
             moveMade = True
         if moveMade:
